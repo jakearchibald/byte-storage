@@ -76,10 +76,6 @@ The `writable` will close once if `end` is provided, and `end - start` bytes hav
 
 If more than `end - start` bytes are queued, the writable errors.
 
-If the readable closes before `end - start` bytes are queued, the writable closes. TODO: should we leave untouched bytes alone in this case?
-
-If the readable errors, then any already-written bytes are retained, as in this is not a transactional system.
-
 The write lock is released once the `writable` is closed.
 
 ### Transforming a byte store
@@ -98,6 +94,8 @@ This functions the same as `.write` except:
 
 * Writes to the writable are buffered if they're beyond the current read point (unless it's the end of the store). This means if you read 1 byte, and write 2, the next read in the transform will not include your written byte.
 * Rejects if store `name` doesn't exist.
+* If the readable closes before `end - start` bytes are queued, the writable closes. TODO: should we leave untouched bytes alone in this case?
+* If the readable errors, then any already-written bytes are retained, as in this is not a transactional system, it won't undo changes so far.
 
 ### Retrieving metadata on a byte store
 
