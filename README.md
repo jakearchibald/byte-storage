@@ -2,7 +2,7 @@
 
 The aim is to provide a low-level disk-backed storage system.
 
-A measure of success would be being able to use this API to create a custom disk-backed data store, such as sqllite.
+A measure of success would be being able to use this API to create a custom disk-backed data store, such as sqlite.
 
 ## API
 
