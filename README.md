@@ -212,7 +212,7 @@ Do we need an API to create locks independent of particular actions. Eg:
 })();
 ```
 
-## Reading a range from byte storage
+## Reading number of data chunks in a custom structure
 
 Imagine a data structure that was an unsigned long, and then a set of data of length specified by that long (in bytes). The sequence ends with a unsigned long equalling zero.
 
