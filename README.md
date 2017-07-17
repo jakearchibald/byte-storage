@@ -192,5 +192,5 @@ The above locks the whole of `"foo"` until the client closes. We could work arou
 
 Do we need an API to create locks independent of particular actions. Eg:
 
-* I have a 500 byte store containing PNG data, I want to lock the whole store while I compress the data, which include reading, writing, and hopefully truncating.
-* I am transforming some data, but I'm caching what I read. My write errors, but I want to write back what I originally read within the same lock.
+* I have a 500 byte store containing PNG data. I want to lock the whole store while I compress the data, which includes reading, writing, and hopefully truncating.
+* I am transforming some data, but I'm also buffering what I read. If my write errors, I want to write back what I originally read within the same lock, effectively undoing the partial transform.
