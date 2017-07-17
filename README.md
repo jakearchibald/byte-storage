@@ -7,7 +7,7 @@ Developers should be able to use this to create their own higher-level storage s
 ## API
 
 ```ts
-window.byteStorage:ByteStorage;
+self.byteStorage:ByteStorage;
 ```
 
 The entry point for the API.
