@@ -230,3 +230,5 @@ async function itemsInStructure() {
   }
 }
 ```
+
+This example is one that would benefit from a single lock across multiple reads.
