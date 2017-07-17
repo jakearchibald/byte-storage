@@ -192,3 +192,41 @@ Do we need an API to create locks independent of particular actions. Eg:
 
 * I have a 500 byte store containing PNG data. I want to lock the whole store while I compress the data, which includes reading, writing, and hopefully truncating.
 * I am transforming some data, but I'm also buffering what I read. If my write errors, I want to write back what I originally read within the same lock, effectively undoing the partial transform.
+
+# Examples
+
+## Writing a fetch response into byte storage
+
+```js
+(async function() {
+  const response = await fetch(url);
+  const opts = {};
+  
+  if (response.headers.get('Content-Length')) {
+   opts.end = Number(response.headers.get('Content-Length'));
+  }
+  
+  await response.body.pipeTo(
+    await byteStorage.write('some-data', opts)
+  );
+})();
+```
+
+## Reading a range from byte storage
+
+Imagine a data structure that was an unsigned long, and then a set of data of length specified by that long (in bytes). The sequence ends with a unsigned long equalling zero.
+
+```js
+async function itemsInStructure() {
+  let start = 0;
+  let num = 0;
+  
+  while (true) {
+    const data = await byteStorage.readAll('data-structure', {start, end: start + 4});
+    const nextChunkLen = new Uint32Array(data.buffer)[0];
+    if (nextChunkLen === 0) return num;
+    num++;
+    start += 4 + nextChunkLen;
+  }
+}
+```
