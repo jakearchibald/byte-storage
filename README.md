@@ -1,3 +1,10 @@
+# Problems with this proposal
+
+* The locking in this proposal is a problem in that it's mandatory, and locks don't work across multiple reads & writes. Locking should be optional and independent. Whether they should be opt-in or opt-out is another issue. [#8](https://github.com/jakearchibald/byte-storage/issues/8).
+* A lower-level may be sync access in a worker, similar to mmap. [#4](https://github.com/jakearchibald/byte-storage/issues/4).
+
+----
+
 # Byte storage
 
 The aim is to provide a low-level disk-backed storage system.
